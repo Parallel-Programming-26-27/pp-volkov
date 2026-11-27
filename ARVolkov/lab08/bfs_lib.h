@@ -16,9 +16,8 @@ typedef struct {
 
 
 int* bfs_func(int start_node, graph_node* graph, int graph_nodes_cnt);
-graph* create_graph_from_file(char* file_name);
+graph* create_graph_from_file(const char* file_name);
 void cleanup_mmap_fd(char* data, size_t file_size, int fd);
-void show_graph(graph* concrete_graph);
 
 
 //связной список для очереди

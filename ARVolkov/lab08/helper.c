@@ -18,13 +18,10 @@ int* fetch_nums(char* buffer, int buff_bound) {
         i++;
     }
 
-    printf("[строка %d] Первое число прочитали\n", __LINE__);
-
     // Ровно один пробел между числами
     if (i > buff_bound || buffer[i] != ' ') return NULL;
     i++; 
 
-    printf("[строка %d] Пробел пропустили прочитали\n", __LINE__);
     
     // что граница буфера еще не достигнута
     if (i > buff_bound) return NULL;
@@ -38,13 +35,9 @@ int* fetch_nums(char* buffer, int buff_bound) {
         i++;
     }
 
-    printf("[строка %d] Второе число прочитали\n", __LINE__);
-
     // если конец строки не достигнут значит строка не соответствует шаблону
     if (i <= buff_bound) return NULL;
     
-    printf("[строка %d] Успех\n", __LINE__);
-
     // успех, выделяем память и возвращаем
     int* result = (int*)malloc(2 * sizeof(int));
     if (result == NULL) return NULL;

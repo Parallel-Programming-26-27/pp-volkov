@@ -93,7 +93,7 @@ int* bfs_func(int start_node, graph_node* graph, int graph_nodes_cnt) {
 //или неправильном формате файла графа
 //функция вернет NULL
 //-----
-graph* create_graph_from_file(char* file_name) {
+graph* create_graph_from_file(const char* file_name) {
     int fd = open(file_name, O_RDONLY);
     if (fd == -1) {
         printf("[строка %d] something went wrong while opening file\n", __LINE__);
@@ -127,23 +127,18 @@ graph* create_graph_from_file(char* file_name) {
 
     bool header_read = false;
     while (!header_read) {
-        printf("[строка %d] Новая итерация\n", __LINE__);
         char curr = *(data + i);
 
         if (curr == '\n') {
             header_read = true;
-            printf("[строка %d] Встретили перевод строки\n", __LINE__);
         }
         else {
-            printf("[строка %d] Char %c\n", __LINE__, *(data + i));
             buff_bound++;
             buffer[buff_bound] = *(data + i);
         }
         
         i++;
     }
-
-    printf("[строка %d] Вычитали", __LINE__);
 
     int v_num;//количество вершин графа
     int* nums = fetch_nums(buffer, buff_bound);
@@ -153,7 +148,6 @@ graph* create_graph_from_file(char* file_name) {
         return NULL;
     }
     else {
-        printf("[строка %d] Количество вершин графа%d\n", __LINE__, nums[0]);
         v_num = nums[0];
     }
     free(nums);
@@ -188,11 +182,9 @@ graph* create_graph_from_file(char* file_name) {
     buff_bound = -1;
     while (i <= file_size) {
 
-        printf("[строка %d] Новая итерация\n", __LINE__);
         char curr = *(data + i);
 
         if (curr == '\n' || i == file_size) {
-            printf("[строка %d] Встретили перевод строки\n", __LINE__);
             
             nums = fetch_nums(buffer, buff_bound);
             if (nums == NULL) {
@@ -222,7 +214,6 @@ graph* create_graph_from_file(char* file_name) {
             free(nums);
         }
         else {
-            printf("[строка %d] Char %c\n", __LINE__, *(data + i));
             buff_bound++;
             buffer[buff_bound] = *(data + i);
         }
@@ -239,17 +230,4 @@ graph* create_graph_from_file(char* file_name) {
     close(fd);
 
     return concrete_graph;
-}
-
-void show_graph(graph* concrete_graph) {
-    //вывод всего графа
-    for (int i = 0; i < concrete_graph->node_cnt; i++) {
-        graph_node* curr_node = &concrete_graph->nodes[i];
-
-        printf("Итерация %d, вершина графа под номером%d\n", i, curr_node->node_num);
-        for (int j = 0; j < curr_node->connected_nodes_cnt; j++) {
-            printf("%d ", curr_node->connected_nodes_nums[j]);
-        }
-        printf("\n");
-    }
 }
