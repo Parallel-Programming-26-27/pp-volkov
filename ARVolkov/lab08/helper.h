@@ -1,0 +1,1 @@
+int* fetch_nums(char* buffer, int buff_bound);
